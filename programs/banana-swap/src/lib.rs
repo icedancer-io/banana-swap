@@ -6,10 +6,26 @@ declare_id!("3Zg1z6Yfuv4vAkVcm1j3jxhb1QqF3DPzn7uaf3jeNqwo");
 pub mod banana_swap {
     use super::*;
 
-    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
+    pub fn swap(ctx: Context<Swap>, amount_in: u64, amount_out: u64) -> Result<()> {
+        emit!(SwapEvent {
+            market: ctx.accounts.market.key(),
+            amount_in,
+            amount_out
+        });
+
         Ok(())
     }
 }
 
 #[derive(Accounts)]
-pub struct Initialize {}
+pub struct Swap<'info> {
+    /// CHECK: A market account
+    pub market: UncheckedAccount<'info>
+}
+
+#[event]
+struct SwapEvent {
+    market: Pubkey,
+    amount_in: u64,
+    amount_out: u64
+}
