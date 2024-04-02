@@ -10,11 +10,17 @@ describe("banana-swap", () => {
 
   it("Swap", async () => {
     const market = new anchor.web3.PublicKey('EGZ7tiLeH62TPV1gL8WwbXGzEPa9zmcpVnnkPKKnrE2U')
-    const amountIn = new BN(1000)
-    const amountOut = new BN(999)
-    const tx = await program.methods.swap(amountIn, amountOut).accounts({
+
+    await program.methods.swap(new BN(1000), new BN(100)).accounts({
       market
     }).rpc();
-    console.log("Your transaction signature", tx);
+
+    await program.methods.swap(new BN(1000), new BN(200)).accounts({
+      market
+    }).rpc();
+
+    await program.methods.swap(new BN(1000), new BN(300)).accounts({
+      market
+    }).rpc();
   });
 });

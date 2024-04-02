@@ -20,12 +20,13 @@ pub mod banana_swap {
 #[derive(Accounts)]
 pub struct Swap<'info> {
     /// CHECK: A market account
-    pub market: UncheckedAccount<'info>
+    pub market: UncheckedAccount<'info>,
 }
 
 #[event]
+#[derive(Debug)]
 struct SwapEvent {
     market: Pubkey,
     amount_in: u64,
-    amount_out: u64
+    amount_out: u64,
 }
